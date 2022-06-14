@@ -13,6 +13,7 @@ let ERROR_MESSAGE = "ERROR_MESSAGE"
 
 const accountSid = 'AC78f98bd6b3a51be40001b174054f4331'; 
 const authToken = '7743ad222343a3712c3912a06f28b19e'; 
+
 const client = require('twilio')(accountSid, authToken); 
 
 const LaunchRequestHandler = {
@@ -33,7 +34,6 @@ const LaunchRequestHandler = {
                       .getResponse();
       }
       const speechResponse = `Hola, ${profileName}`;
-      sendSiniestroInfo(speechResponse)
       return responseBuilder
                       .speak(speechResponse)
                       .reprompt(`${profileName}, ¿sigues ahi?`)
@@ -53,13 +53,29 @@ const LaunchRequestHandler = {
   }
 }
 
+
+const AccidenteIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AccidenteIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = `${name}, enviare inmediatamente un ajustador a tu ubicación`;
+        sendSiniestroInfo(speakOutput);
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
 const SaludoIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SaludoIntent';
     },
     handle(handlerInput) {
-        const speakOutput = `Hola, como te puedo ayudar ?`;
+        const speakOutput = `Hola ${name}, como te puedo ayudar ?`;
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -177,9 +193,10 @@ async function sendSiniestroInfo(_message_) {
         
     client.messages 
       .create({ 
-         body: _message_, 
          from: 'whatsapp:+14155238886',       
-         to: `whatsapp:+521${phoneNumber}`
+         to: `whatsapp:+521${phoneNumber}`,
+         body: _message_
+         
        }) 
       .then(message => console.log(message.sid)) 
       .done();
@@ -196,6 +213,7 @@ async function sendSiniestroInfo(_message_) {
  * This handler acts as the entry point for your skill, routing all request and response
  * payloads to the handlers above. Make sure any new handlers or interceptors you've
  * defined are included below. The order matters - they're processed top to bottom 
+ * https://maps.googleapis.com/maps/api/geocode/json?latlng=19.5235595703125,-99.04136203130344&key=AIzaSyBd66OtBhr5ZpCoEVBg3YfzEHMyWw85QqQ
  * */
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
@@ -205,6 +223,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler,
+        AccidenteIntentHandler,
         IntentReflectorHandler)
     .addErrorHandlers(
         ErrorHandler)
