@@ -4,64 +4,79 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
+const axios = require("axios");
+//AC2fa1dc97c14f5d9b
+//48a8535d4a4d100d
+
+//8ed86a2b0acef11a23dc
+//9c59e2f5a91c
+
+const accountSid = '';
+const authToken = ''
+const client = require('twilio')(accountSid, authToken); 
+
 let name = "";
 let phoneNumber = "5514200581"
 let NO_INFO = "NO_INFO"
-let NOTIFY_MISSING_PERMISSIONS  = "NOTIFY_MISSING_PERMISSIONS"
+let NOTIFY_MISSING_PERMISSIONS = "NOTIFY_MISSING_PERMISSIONS"
 let MOBILE_PERMISSION = "MOBILE_PERMISSION"
 let ERROR_MESSAGE = "ERROR_MESSAGE"
 
-const accountSid = ''; 
-const authToken = ''; 
-
-const client = require('twilio')(accountSid, authToken); 
-
 const LaunchRequestHandler = {
-  canHandle(handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
-  },
-  async handle(handlerInput) {
-    const { requestEnvelope, serviceClientFactory, responseBuilder } = handlerInput;
-    try {
-      const upsServiceClient = serviceClientFactory.getUpsServiceClient();
-      const profileName = await upsServiceClient.getProfileName();
-    
-      name = profileName;
-      console.log(profileName)
-      if (!profileName) {
-        return responseBuilder
-                      .speak(NO_INFO)
-                      .getResponse();
-      }
-      const speechResponse = `Hola, ${profileName}`;
-      return responseBuilder
-                      .speak(speechResponse)
-                      .reprompt(`${profileName}, ¿sigues ahi?`)
-                      .getResponse();
-    } catch (error) {
-      console.log(error.message);
-      if (error.statusCode === 403) {
-        return responseBuilder
-        .speak(NOTIFY_MISSING_PERMISSIONS)
-        .withAskForPermissionsConsentCard(MOBILE_PERMISSION)
-        .getResponse();
-      }
-      console.log(JSON.stringify(error));
-      const response = responseBuilder.speak(ERROR_MESSAGE).getResponse();
-      return response;
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
+    },
+    async handle(handlerInput) {
+        const {
+            requestEnvelope,
+            serviceClientFactory,
+            responseBuilder
+        } = handlerInput;
+        
+        try {
+            await sendSiniestroInfo("Hola")
+            const upsServiceClient = serviceClientFactory.getUpsServiceClient();
+            const profileName = await upsServiceClient.getProfileName();
+
+            name = profileName;
+            console.log(profileName)
+            if (!profileName) {
+                return responseBuilder
+                    .speak(NO_INFO)
+                    .getResponse();
+            }
+            const speechResponse = `Hola, ${profileName}`;
+            
+
+
+            return responseBuilder
+                .speak(speechResponse)
+                .reprompt(`${profileName}, ¿sigues ahi?`)
+                .getResponse();
+        } catch (error) {
+            console.log(error.message);
+            if (error.statusCode === 403) {
+                return responseBuilder
+                    .speak(NOTIFY_MISSING_PERMISSIONS)
+                    .withAskForPermissionsConsentCard(MOBILE_PERMISSION)
+                    .getResponse();
+            }
+            console.log(JSON.stringify(error));
+            const response = responseBuilder.speak(ERROR_MESSAGE).getResponse();
+            return response;
+        }
     }
-  }
 }
 
 
 const AccidenteIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AccidenteIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === 'AccidenteIntent';
     },
     handle(handlerInput) {
         const speakOutput = `${name}, enviare inmediatamente un ajustador a tu ubicación`;
-        sendSiniestroInfo(speakOutput);
+
         return handlerInput.responseBuilder
             .speak(speakOutput)
             //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
@@ -71,8 +86,8 @@ const AccidenteIntentHandler = {
 
 const SaludoIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'SaludoIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === 'SaludoIntent';
     },
     handle(handlerInput) {
         const speakOutput = `Hola ${name}, como te puedo ayudar ?`;
@@ -86,8 +101,8 @@ const SaludoIntentHandler = {
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
         const speakOutput = '¿Cómo te puedo ayudar?';
@@ -101,9 +116,9 @@ const HelpIntentHandler = {
 
 const CancelAndStopIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent'
-                || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            (Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.CancelIntent' ||
+                Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
         const speakOutput = 'Nos vemos!';
@@ -120,8 +135,8 @@ const CancelAndStopIntentHandler = {
  * */
 const FallbackIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput) {
         const speakOutput = 'Sorry, I don\'t know about that. Please try again.';
@@ -159,7 +174,7 @@ const IntentReflectorHandler = {
     handle(handlerInput) {
         const intentName = Alexa.getIntentName(handlerInput.requestEnvelope);
         const speakOutput = `You just triggered ${intentName}`;
-        
+
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -193,10 +208,9 @@ async function sendSiniestroInfo(_message_) {
         
     client.messages 
       .create({ 
+         body: _message_, 
          from: 'whatsapp:+14155238886',       
-         to: `whatsapp:+521${phoneNumber}`,
-         body: _message_
-         
+         to: 'whatsapp:+5215514200581' 
        }) 
       .then(message => console.log(message.sid)) 
       .done();
@@ -207,7 +221,6 @@ async function sendSiniestroInfo(_message_) {
   
     });
 }
-
 
 /**
  * This handler acts as the entry point for your skill, routing all request and response
@@ -228,6 +241,5 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addErrorHandlers(
         ErrorHandler)
     .withCustomUserAgent('sample/hello-world/v1.2')
-      .withApiClient(new Alexa.DefaultApiClient())
-
+    .withApiClient(new Alexa.DefaultApiClient())
     .lambda();
