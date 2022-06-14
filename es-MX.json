@@ -1,555 +1,73 @@
 {
-  "interactionModel": {
-    "languageModel": {
-      "invocationName": "mi asistente quálitas",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": [
-            "cancela",
-            "cancelar"
-          ]
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": [
-            "tengo preguntas",
-            "una pregunta",
-            "necesito que resuelvas una duda",
-            "tengo una duda",
-            "tengo una pregunta"
-          ]
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": [
-            "ya basta",
-            "para",
-            "detente"
-          ]
-        },
-        {
-          "name": "SaludoIntent",
-          "slots": [],
-          "samples": [
-            "que haces",
-            "como te va",
-            "hey tu",
-            "hola",
-            "como estás",
-            "di hola",
-            "hola mundo"
-          ]
-        },
-        {
-          "name": "GraciasIntent",
-          "slots": [],
-          "samples": [
-            "gracias",
-            "muy amable",
-            "que amable",
-            "te lo agradezco"
-          ]
-        },
-        {
-          "name": "AdiosIntent",
-          "slots": [],
-          "samples": [
-            "eso es todo gracias"
-          ]
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "name": "InfosegurosIntentUNO",
-          "slots": [],
-          "samples": [
-            "quiero un seguro",
-            "quiero contratar un seguro de auto",
-            "quiero contratar un seguro",
-            "Quiero una cotización de sus seguros"
-          ]
-        },
-        {
-          "name": "InfosegurosIntentDOS",
-          "slots": [
-            {
-              "name": "marca",
-              "type": "MarcasType"
-            }
-          ],
-          "samples": [
-            "marca {marca}"
-          ]
-        },
-        {
-          "name": "InfosegurosIntentTRES",
-          "slots": [
-            {
-              "name": "submarca",
-              "type": "MarcasType"
-            },
-            {
-              "name": "letra",
-              "type": "LetraType"
-            },
-            {
-              "name": "letranumero",
-              "type": "AMAZON.NUMBER"
-            }
-          ],
-          "samples": [
-            "{letra} {letranumero}",
-            "submarca {submarca}"
-          ]
-        },
-        {
-          "name": "InfosegurosIntentCUATRO",
-          "slots": [
-            {
-              "name": "ano",
-              "type": "AMAZON.FOUR_DIGIT_NUMBER"
-            }
-          ],
-          "samples": [
-            "año {ano}"
-          ]
-        },
-        {
-          "name": "InfosegurosIntentEND",
-          "slots": [],
-          "samples": [
-            "es correcta"
-          ]
-        },
-        {
-          "name": "ActualizarSeguroIntentUNO",
-          "slots": [],
-          "samples": [
-            "Como puedo solicitar una renovación",
-            "Mi seguro ya va a vencer que puedo hacer",
-            "Quiero hacer una renovación",
-            "Quiero actualizar mi seguro"
-          ]
-        },
-        {
-          "name": "ActualizarSeguroIntentDOS",
-          "slots": [
-            {
-              "name": "asnumber",
-              "type": "ActualizarSeguroNumberType"
-            }
-          ],
-          "samples": [
-            "fólio {asnumber} {asnumber} {asnumber} {asnumber} {asnumber} {asnumber} ",
-            "folio {asnumber} {asnumber} {asnumber} {asnumber} {asnumber} {asnumber} "
-          ]
-        },
-        {
-          "name": "BuscarGruaIntentDOS",
-          "slots": [
-            {
-              "name": "buscargruanumber",
-              "type": "ActualizarSeguroNumberType"
-            }
-          ],
-          "samples": [
-            "mi numero de reporte es {buscargruanumber} {buscargruanumber} {buscargruanumber} {buscargruanumber}",
-            "mi número de reporte es {buscargruanumber} {buscargruanumber} {buscargruanumber} {buscargruanumber}"
-          ]
-        },
-        {
-          "name": "ActualizarSeguroIntentEND",
-          "slots": [],
-          "samples": [
-            "claro",
-            "si por favor",
-            "si"
-          ]
-        },
-        {
-          "name": "SiniestroIntent",
-          "slots": [],
-          "samples": [
-            "necesito ayuda acabo de chocar",
-            "tengo un accidente",
-            "tuve un choque",
-            "necesito ayuda urgente",
-            "ayudame tuve un acidente",
-            "tuve un accidente",
-            "quiero reportar un accidente",
-            "quiero reportar un siniestro",
-            "como puedo reportar un choque",
-            "necesito ayuda",
-            "me acaban de chocar",
-            "quiero levantar un siniestro"
-          ]
-        },
-        {
-          "name": "UbicarSiniestroIntent",
-          "slots": [],
-          "samples": [
-            "a que hora van a venir a ayudar",
-            "quiero informacion de mi siniestro",
-            "a que hora va a llegar el ajustador",
-            "en donde viene la grua",
-            "en donde viene la grúa"
-          ]
-        },
-        {
-          "name": "EnviarInformacionIntent",
-          "slots": [],
-          "samples": [
-            "envía me información sobre seguros",
-            "envía me información sobre seguro",
-            "envia me informacion sobre",
-            "envía me informacion sobre seguros",
-            "envia me informacion sobre seguros",
-            "enviame información",
-            "Enviame información sobre seguros",
-            "enviame informacion"
-          ]
-        },
-        {
-          "name": "GroseriaIntent",
-          "slots": [],
-          "samples": [
-            "tonto",
-            "torpe",
-            "eres un tonto"
-          ]
-        },
-        {
-          "name": "BuscarGruaIntentUNO",
-          "slots": [],
-          "samples": [
-            "en dónde está mi grua",
-            "en donde esta mi grua"
-          ]
-        },
-        {
-          "name": "NoGraciasIntent",
-          "slots": [],
-          "samples": [
-            "no",
-            "no gracias"
-          ]
-        },
-        {
-          "name": "EsperaIntent",
-          "slots": [],
-          "samples": [
-            "espera",
-            "espera por favor",
-            "espera un momento"
-          ]
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "mi asistente",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": [
+                        "cancela"
+                    ]
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": [
+                        "necesito ayuda",
+                        "ayuda"
+                    ]
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "SaludoIntent",
+                    "slots": [],
+                    "samples": [
+                        "hola"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AccidenteIntent",
+                    "slots": [
+                        {
+                            "name": "accidente",
+                            "type": "accidentes"
+                        }
+                    ],
+                    "samples": [
+                        "ayuda tengo un {accidente}",
+                        "ayudame tengo {accidente}",
+                        "ayudame tengo un {accidente}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "accidentes",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "choque"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "problema"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "accidente"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ],
-      "types": [
-        {
-          "values": [
-            {
-              "name": {
-                "value": "diciembre"
-              }
-            },
-            {
-              "name": {
-                "value": "noviembre"
-              }
-            },
-            {
-              "name": {
-                "value": "octubre"
-              }
-            },
-            {
-              "name": {
-                "value": "Septiembre"
-              }
-            },
-            {
-              "name": {
-                "value": "Agosto"
-              }
-            },
-            {
-              "name": {
-                "value": "Julio"
-              }
-            },
-            {
-              "name": {
-                "value": "Junio"
-              }
-            },
-            {
-              "name": {
-                "value": "Mayo"
-              }
-            },
-            {
-              "name": {
-                "value": "Abril"
-              }
-            },
-            {
-              "name": {
-                "value": "Marzo"
-              }
-            },
-            {
-              "name": {
-                "value": "Febrero"
-              }
-            },
-            {
-              "name": {
-                "value": "Enero"
-              }
-            }
-          ],
-          "name": "MesesType"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "áudi"
-              }
-            },
-            {
-              "name": {
-                "value": "kía"
-              }
-            },
-            {
-              "name": {
-                "value": "audi"
-              }
-            },
-            {
-              "name": {
-                "value": "nissan"
-              }
-            },
-            {
-              "name": {
-                "value": "honda"
-              }
-            },
-            {
-              "name": {
-                "value": "kia"
-              }
-            }
-          ],
-          "name": "MarcasType"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "río"
-              }
-            },
-            {
-              "name": {
-                "value": "rio"
-              }
-            }
-          ],
-          "name": "SubmarcaType"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "z"
-              }
-            },
-            {
-              "name": {
-                "value": "x"
-              }
-            },
-            {
-              "name": {
-                "value": "w"
-              }
-            },
-            {
-              "name": {
-                "value": "v"
-              }
-            },
-            {
-              "name": {
-                "value": "u"
-              }
-            },
-            {
-              "name": {
-                "value": "t"
-              }
-            },
-            {
-              "name": {
-                "value": "s"
-              }
-            },
-            {
-              "name": {
-                "value": "r"
-              }
-            },
-            {
-              "name": {
-                "value": "q"
-              }
-            },
-            {
-              "name": {
-                "value": "p"
-              }
-            },
-            {
-              "name": {
-                "value": "o"
-              }
-            },
-            {
-              "name": {
-                "value": "n"
-              }
-            },
-            {
-              "name": {
-                "value": "m"
-              }
-            },
-            {
-              "name": {
-                "value": "l"
-              }
-            },
-            {
-              "name": {
-                "value": "k"
-              }
-            },
-            {
-              "name": {
-                "value": "j"
-              }
-            },
-            {
-              "name": {
-                "value": "y"
-              }
-            },
-            {
-              "name": {
-                "value": "h"
-              }
-            },
-            {
-              "name": {
-                "value": "g"
-              }
-            },
-            {
-              "name": {
-                "value": "f"
-              }
-            },
-            {
-              "name": {
-                "value": "e"
-              }
-            },
-            {
-              "name": {
-                "value": "d"
-              }
-            },
-            {
-              "name": {
-                "value": "c"
-              }
-            },
-            {
-              "name": {
-                "value": "b"
-              }
-            },
-            {
-              "name": {
-                "value": "a"
-              }
-            }
-          ],
-          "name": "LetraType"
-        },
-        {
-          "values": [
-            {
-              "name": {
-                "value": "cero"
-              }
-            },
-            {
-              "name": {
-                "value": "nueve"
-              }
-            },
-            {
-              "name": {
-                "value": "ocho"
-              }
-            },
-            {
-              "name": {
-                "value": "siete"
-              }
-            },
-            {
-              "name": {
-                "value": "seis"
-              }
-            },
-            {
-              "name": {
-                "value": "cinco"
-              }
-            },
-            {
-              "name": {
-                "value": "cuatro"
-              }
-            },
-            {
-              "name": {
-                "value": "tres"
-              }
-            },
-            {
-              "name": {
-                "value": "dos"
-              }
-            },
-            {
-              "name": {
-                "value": "uno"
-              }
-            }
-          ],
-          "name": "ActualizarSeguroNumberType"
-        }
-      ]
     }
-  },
-  "version": "58"
 }
