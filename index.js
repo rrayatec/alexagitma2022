@@ -11,8 +11,8 @@ let NOTIFY_MISSING_PERMISSIONS  = "NOTIFY_MISSING_PERMISSIONS"
 let MOBILE_PERMISSION = "MOBILE_PERMISSION"
 let ERROR_MESSAGE = "ERROR_MESSAGE"
 
-const accountSid = 'AC78f98bd6b3a51be40001b174054f4331'; 
-const authToken = '7743ad222343a3712c3912a06f28b19e'; 
+const accountSid = ''; 
+const authToken = ''; 
 
 const client = require('twilio')(accountSid, authToken); 
 
