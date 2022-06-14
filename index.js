@@ -210,7 +210,9 @@ async function sendSiniestroInfo(_message_) {
       .create({ 
          body: _message_, 
          from: 'whatsapp:+14155238886',       
-         to: 'whatsapp:+5215514200581' 
+         to: 'whatsapp:+5215514200581',
+        //mediaUrl: 'https://www.amis.com.mx/InformaWeb/Documentos/Archivos/Manual_AP.pdf',
+         mediaUrl: 'https://bit.ly/whatsapp-image-example'
        }) 
       .then(message => console.log(message.sid)) 
       .done();
